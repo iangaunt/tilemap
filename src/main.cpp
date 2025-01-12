@@ -1,27 +1,47 @@
 #include <raylib.h>
-#include "ball.h"
+#include <stdlib.h>
+#include <time.h>
 
-int main() 
-{
+#include "h/ball.h"
+#include "h/resource_dir.h"
+#include "h/tile.h"
+
+int main() {
+    srand(time(NULL));
+
     const Color darkGreen = {20, 160, 133, 255};
+
+    SearchAndSetResourceDir("resources");
     
-    constexpr int screenWidth = 800;
-    constexpr int screenHeight = 600;
+    constexpr int width = 1152;
+    constexpr int height = 1152;
     
     Ball ball;
-    
-    InitWindow(screenWidth, screenHeight, "My first RAYLIB program!");
+	
+    InitWindow(width, height, "test");
     SetTargetFPS(60);
+
+    Image forest = LoadImage("forest_tilemap.png");
+    Tile* forest_left_corner = new Tile(forest, "forest_left_corner");
     
-    while (!WindowShouldClose())
-    {
+    ImageCrop(&forest, {0, 0, 24, 24});
+    ImageResize(&forest, 72, 72);
+
+    Texture2D texture = LoadTextureFromImage(forest);
+    UnloadImage(forest);
+    
+    while (!WindowShouldClose()) {
         ball.Update();
         
         BeginDrawing();
             ClearBackground(darkGreen);
             ball.Draw();
         EndDrawing();
+
+        DrawText("Hello Raylib", 200, 200, 20, WHITE);
+		DrawTexture(texture, 0, 0, WHITE);
     }
-    
+
+    UnloadTexture(texture);
     CloseWindow();
 }

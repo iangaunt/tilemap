@@ -1,4 +1,4 @@
-#include "ball.h"
+#include "h/ball.h"
 #include <raylib.h>
 
 Ball::Ball() 
