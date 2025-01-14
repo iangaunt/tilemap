@@ -1,10 +1,17 @@
+#include <string>
+#include <iostream>
+
 #include <raylib.h>
 #include <stdlib.h>
 #include <time.h>
 
-#include "h/ball.h"
-#include "h/resource_dir.h"
-#include "h/tile.h"
+#include "./h/ball.h"
+#include "./h/resource_dir.h"
+#include "./h/tile.h"
+#include "./h/tilemap.h"
+
+int width = 1152;
+int height = 1152;
 
 int main() {
     srand(time(NULL));
@@ -12,23 +19,15 @@ int main() {
     const Color darkGreen = {20, 160, 133, 255};
 
     SearchAndSetResourceDir("resources");
-    
-    constexpr int width = 1152;
-    constexpr int height = 1152;
-    
+
     Ball ball;
 	
     InitWindow(width, height, "test");
     SetTargetFPS(60);
 
-    Image forest = LoadImage("forest_tilemap.png");
-    Tile* forest_left_corner = new Tile(forest, "forest_left_corner");
-    
-    ImageCrop(&forest, {0, 0, 24, 24});
-    ImageResize(&forest, 72, 72);
-
-    Texture2D texture = LoadTextureFromImage(forest);
-    UnloadImage(forest);
+    TileMap* forest = new TileMap();
+    forest->LoadTiles("forest_tilemap.png", "forest_tilemap.txt", 7, 6);
+    Texture2D forest_texture = forest->DisplayMap("forest.txt");
     
     while (!WindowShouldClose()) {
         ball.Update();
@@ -38,10 +37,8 @@ int main() {
             ball.Draw();
         EndDrawing();
 
-        DrawText("Hello Raylib", 200, 200, 20, WHITE);
-		DrawTexture(texture, 0, 0, WHITE);
+        DrawTexture(forest_texture, 0, 0, WHITE);
     }
 
-    UnloadTexture(texture);
     CloseWindow();
 }

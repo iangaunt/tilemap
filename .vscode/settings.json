@@ -59,6 +59,9 @@
 		"cinttypes": "cpp",
 		"typeinfo": "cpp",
 		"variant": "cpp",
-		"*.m": "cpp"
+		"*.m": "cpp",
+		"iostream": "cpp",
+		"istream": "cpp",
+		"fstream": "cpp"
 	}
 }
