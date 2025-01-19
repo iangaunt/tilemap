@@ -20,7 +20,6 @@ Tile::Tile(const char* file, string nameh) {
     
     Image image = LoadImage(file);
     ImageCrop(&image, {0, 0, 24, 24});
-    ImageResize(&image, 72, 72);
     textures->push_back(image);
 }
 
@@ -30,23 +29,21 @@ Tile::Tile(const char* file, string nameh, int x, int y) {
 
     Image image = LoadImage(file);
     ImageCrop(&image, {(float) x, (float) y, 24, 24});
-    ImageResize(&image, 72, 72);
     textures->push_back(image);
 }
 
 void Tile::TileDraw(Image img, int x, int y) {
     int r = rand() % textures->size();
-    ImageDraw(&img, textures->at(r), {0, 0, 72, 72}, {(float) x, (float) y, 72, 72}, WHITE);
+    ImageDraw(&img, textures->at(r), {0, 0, 24, 24}, {(float) x, (float) y, 24, 24}, WHITE);
 }
 
 void Tile::TileDraw(Image img, int x, int y, int index) {
-    ImageDraw(&img, textures->at(index), {0, 0, 72, 72}, {(float) x, (float) y, 72, 72}, WHITE);
+    ImageDraw(&img, textures->at(index), {0, 0, 24, 24}, {(float) x, (float) y, 24, 24}, WHITE);
 }
 
 void Tile::AddImage(const char* file, int x, int y) {
     Image image = LoadImage(file);
     ImageCrop(&image, {(float) x, (float) y, 24, 24});
-    ImageResize(&image, 72, 72);
     textures->push_back(image);
 }
 

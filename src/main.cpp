@@ -6,12 +6,16 @@
 #include <time.h>
 
 #include "./h/ball.h"
+#include "./h/mapgen.h"
 #include "./h/resource_dir.h"
 #include "./h/tile.h"
 #include "./h/tilemap.h"
 
-int width = 1152;
-int height = 1152;
+int WIDTH = 50;
+int HEIGHT = 30;
+
+int SCREEN_WIDTH = WIDTH * 72;
+int SCREEN_HEIGHT = HEIGHT * 72;
 
 int main() {
     srand(time(NULL));
@@ -22,12 +26,17 @@ int main() {
 
     Ball ball;
 	
-    InitWindow(width, height, "test");
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "test");
     SetTargetFPS(60);
 
-    TileMap* forest = new TileMap();
-    forest->LoadTiles("forest_tilemap.png", "forest_tilemap.txt", 7, 6);
-    Texture2D forest_texture = forest->DisplayMap("forest.txt");
+    TileMap* ex = new TileMap(WIDTH, HEIGHT);
+    ex->LoadTiles("dummy_tiles.png", "dummy_tiles.txt", 6, 1);
+
+    MapGen* map = new MapGen(WIDTH, HEIGHT);
+    map->GenerateMap(3, 2);
+    map->WriteTo("dummy.txt");
+
+    Texture2D tex = ex->DisplayMap("dummy.txt");
     
     while (!WindowShouldClose()) {
         ball.Update();
@@ -37,7 +46,7 @@ int main() {
             ball.Draw();
         EndDrawing();
 
-        DrawTexture(forest_texture, 0, 0, WHITE);
+        DrawTexture(tex, 0, 0, WHITE);
     }
 
     CloseWindow();

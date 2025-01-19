@@ -8,8 +8,11 @@
 
 class TileMap {
     public:
-        TileMap();
+        TileMap(int screen_width, int screen_height);
         ~TileMap();
+
+        int width;
+        int height;
 
         std::unordered_map<std::string, Tile*> map;
 
