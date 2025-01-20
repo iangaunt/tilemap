@@ -62,7 +62,8 @@
 		"*.m": "cpp",
 		"iostream": "cpp",
 		"istream": "cpp",
-		"fstream": "cpp"
+		"fstream": "cpp",
+		"chrono": "cpp"
 	},
 	"C_Cpp.errorSquiggles": "disabled"
 }

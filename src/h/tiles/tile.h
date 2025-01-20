@@ -14,6 +14,7 @@ class Tile {
 
         std::vector<Image>* textures;
         std::string name;
+        int wallmask;
 
         void TileDraw(Image img, int x, int y);
         void TileDraw(Image img, int x, int y, int index);

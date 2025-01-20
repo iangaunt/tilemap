@@ -9,7 +9,6 @@
 class TileMap {
     public:
         TileMap(int screen_width, int screen_height);
-        ~TileMap();
 
         int width;
         int height;
@@ -19,6 +18,9 @@ class TileMap {
         bool LoadTiles(const char* image_file, const char* name_file, int width, int height);
         Texture2D DisplayMap(const char* file);
         bool ContainsKey(std::string elem);
+
+        int FetchWallmask(const char* image_file, int x, int y);
+        void LoadMaskedTiles(const char* image_file);
 };
 
 #endif
